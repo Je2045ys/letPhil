@@ -72,7 +72,18 @@ const orderStatus   = null;             // not yet processed
 
 console.log("--- Task 1: Clean the Data ---");
 // your code here
+const cleanStore = storeName.trim().toLowerCase();
+const titleScore = cleanStore[0].toUpperCase() + cleanStore.slice(1);
+console.log(`Store: ${titleScore}`);
 
+const titleCustomer = customerName[0].toUpperCase() + customerName.slice(1,4) + " " + customerName[5].toUpperCase() + customerName.slice(6);
+console.log(`Customer: ${titleCustomer}`);
+
+const cleanEmail = customerEmail.trim().toLowerCase();
+console.log(`Email: ${cleanEmail}`)
+
+const cleanCode = discountCode.trim();
+console.log(cleanCode);
 
 // ----------------------------------------------------------
 // TASK 2 — Convert prices to numbers
@@ -91,6 +102,21 @@ console.log("--- Task 1: Clean the Data ---");
 
 console.log("\n--- Task 2: Convert Prices ---");
 // your code here
+const price1 = parseFloat(item1Price);
+console.log(`${item1Name} price type before: ${typeof item1Price}`);
+console.log(`${item1Name} price type after: ${typeof price1}`);
+
+const price2 = parseFloat(item2Price);
+console.log(`${item2Name} price type before: ${typeof item2Price}`);
+console.log(`${item2Name} price type after: ${typeof price2}`);
+
+const price3 = parseFloat(item3Price);
+console.log(`${item3Name} price type before: ${typeof item3Price}`);
+console.log(`${item3Name} price type after: ${typeof price3}`);
+
+console.log(`${item1Name} price is $${price1}`);
+console.log(`${item2Name} price is $${price2}`);
+console.log(`${item3Name} price is $${price3}`);
 
 
 // ----------------------------------------------------------
@@ -113,7 +139,19 @@ console.log("\n--- Task 2: Convert Prices ---");
 
 console.log("\n--- Task 3: Line Totals ---");
 // your code here
+const line1Total = price1 * item1Qty;
+console.log(`${item1Name} × ${item1Qty} = $${line1Total.toFixed(2)}`);
 
+const line2Total = price2 * item2Qty;
+console.log(`${item2Name} × ${item2Qty} = $${line2Total.toFixed(2)}`)
+
+const line3Total = price3 * item3Qty;
+console.log(`${item3Name} × ${item3Qty} = $${line3Total.toFixed(2)}`);
+
+const subtotal = line1Total + line2Total + line3Total;
+console.log(`Subtotal: $${subtotal.toFixed(2)}`);
+
+// I wouldn't calculate line1Total before converting because I cannot multiply a string with a number
 
 // ----------------------------------------------------------
 // TASK 4 — Apply discount and tax
@@ -137,6 +175,18 @@ console.log("\n--- Task 3: Line Totals ---");
 
 console.log("\n--- Task 4: Discount and Tax ---");
 // your code here
+const discountAmount = subtotal * 0.10;
+const discountedSubtotal = subtotal - discountAmount;
+console.log(`Discount (10%): -$${discountAmount.toFixed(2)}`);
+console.log(`After discount: $${discountedSubtotal.toFixed(2)}`);
+
+const taxAmount = discountedSubtotal * taxRate;
+const grandTotal = discountedSubtotal + taxAmount;
+console.log(`Tax (8%): $${taxAmount.toFixed(2)}`);
+console.log(`Grand Total: $${grandTotal.toFixed(2)}`);
+
+const isValidCode = discountCode.trim().toUpperCase() === "SAVE10";
+console.log(`Discount code valid: ${isValidCode}`)
 
 
 // ----------------------------------------------------------
@@ -160,6 +210,14 @@ console.log("\n--- Task 4: Discount and Tax ---");
 
 console.log("\n--- Task 5: Type Checks ---");
 // your code here
+console.log(`typeof line1Total: ${typeof line1Total}`)
+console.log(`typeof grandTotal: ${typeof grandTotal}`)
+
+console.log(`orderStatus: ${orderStatus}`) // in this context, the orderStatus variable was set to null. maybe because an order was not placed
+console.log(`typeof orderStatus: ${typeof orderStatus}`)
+console.log(`Boolean(orderStatus): ${Boolean(orderStatus)}`)
+
+console.log(`item1Price + item2Price = ${item1Price + item2Price}`) // it produces "79.9944.99" because the type of the 2 variables is a string, they were concatenated
 
 
 // ----------------------------------------------------------
@@ -183,6 +241,16 @@ console.log("\n--- Task 5: Type Checks ---");
 
 console.log("\n--- Task 6: Receipt Header ---");
 // your code here
+const receiptHeader = `
+================================
+${titleScore}
+================================
+Customer: ${titleCustomer}
+Email:    ${cleanEmail}
+Date:     ${orderDate}
+Code:     ${cleanCode}
+================================`;
+console.log(receiptHeader);
 
 
 // ----------------------------------------------------------
@@ -210,6 +278,17 @@ console.log("\n--- Task 6: Receipt Header ---");
 
 console.log("\n--- Task 7: Receipt Body ---");
 // your code here
+const receiptBody = `
+${item1Name.padEnd(22)}x${item1Qty}    $${line1Total.toFixed(2)}
+${item2Name.padEnd(22)}x${item2Qty}    $${line2Total.toFixed(2)}
+${item3Name.padEnd(22)}x${item3Qty}    $${line3Total.toFixed(2)}
+-----------------------------------
+Subtotal:                   $${subtotal.toFixed(2)}
+Discount (SAVE10 10%):     -$${discountAmount.toFixed(2)}
+Tax (8%):                   $${taxAmount.toFixed(2)}
+-----------------------------------
+TOTAL:                      $${grandTotal.toFixed(2)}`;
+console.log(receiptBody);
 
 
 // ----------------------------------------------------------
@@ -230,6 +309,8 @@ console.log("\n--- Task 7: Receipt Body ---");
 
 console.log("\n--- Task 8: Full Receipt ---");
 // your code here
+const fullReceipt = receiptHeader + receiptBody;
+console.log(fullReceipt);
 
 
 // ----------------------------------------------------------
@@ -253,3 +334,15 @@ console.log("\n--- Task 8: Full Receipt ---");
 // d) Check if the customer's email domain is "pixelgadgets.com":
 //    const isInternalEmail = cleanEmail.endsWith("@pixelgadgets.com");
 //    Log: `Internal customer: ${isInternalEmail}`
+
+const totalItems = item1Qty + item2Qty + item3Qty;
+console.log(`Total items: ${totalItems}`)
+
+const highestPrice = Math.max(price1, price2, price3);
+console.log(`Highest price: $${highestPrice.toFixed(2)}`)
+
+const avgPrice = (price1 + price2 + price3) / 3;
+console.log(`Average price: $${avgPrice.toFixed(2)}`)
+
+const isInternalEmail = cleanEmail.endsWith("@pixelgadgets.com");
+console.log(`Internal customer: ${isInternalEmail}`)
