@@ -12,19 +12,26 @@
 // This should log "Pass" when score is 70, but it always
 // logs "Pass" even when score is 30. Why?
 
-let score = 30;
-const passing = 60;
+// let score = 30;
+// const passing = 60;
 
-if (score = passing) {
-  console.log("Pass ✅");
-} else {
-  console.log("Fail ❌");
-}
+// if (score = passing) {
+//   console.log("Pass ✅");
+// } else {
+//   console.log("Fail ❌");
+// }
 
 // What's wrong ↓
 
 // Your fix ↓
+let score = 30;
+const passing = 70;
 
+if (score >= passing) {
+  console.log("Pass ✅");
+} else {
+  console.log("Fail ❌");
+}
 
 // ----------------------------------------------------------
 // 🟡 DEBUG 2 — Medium
@@ -33,20 +40,29 @@ if (score = passing) {
 // at least 140cm tall OR accompanied by an adult.
 // But the code is turning away people it shouldn't.
 
+// const height        = 135;
+// const withAdult     = true;
+// const minHeight     = 140;
+
+// if (height >= minHeight && withAdult) {
+//   console.log("🎢 Enjoy the ride!");
+// } else {
+//   console.log("🚫 Sorry, you cannot ride.");
+// }
+
+// What's wrong ↓
+// AND statement instead of OR
+
+// Your fix ↓
 const height        = 135;
 const withAdult     = true;
 const minHeight     = 140;
 
-if (height >= minHeight && withAdult) {
+if (height >= minHeight || withAdult) {
   console.log("🎢 Enjoy the ride!");
 } else {
   console.log("🚫 Sorry, you cannot ride.");
 }
-
-// What's wrong ↓
-
-// Your fix ↓
-
 
 // ----------------------------------------------------------
 // 🔴 DEBUG 3 — Hard
@@ -56,20 +72,31 @@ if (height >= minHeight && withAdult) {
 // One is a style issue from a previous lesson.
 // Find both.
 
-var orderTotal = 85;
+// var orderTotal = 85;
 
-if (orderTotal >= 50) {
-  console.log("🚚 Standard shipping: $5");
-}
-if (orderTotal >= 100) {
-  console.log("🚀 Free express shipping!");
-}
-if (orderTotal < 50) {
-  console.log("📦 Economy shipping: $9.99");
-}
+// if (orderTotal >= 50) {
+//   console.log("🚚 Standard shipping: $5");
+// }
+// if (orderTotal >= 100) {
+//   console.log("🚀 Free express shipping!");
+// }
+// if (orderTotal < 50) {
+//   console.log("📦 Economy shipping: $9.99");
+// }
 
 // Bug 1 ↓
+// var instead of const/let
 
 // Bug 2 ↓
+// started with 50 instead of 100
 
 // Your fix ↓
+const orderTotal = 85;
+
+if (orderTotal >= 100) {
+  console.log("🚀 Free express shipping!");
+} else if (orderTotal >= 50) {
+  console.log("🚚 Standard shipping: $5");
+} else if (orderTotal < 50) {
+  console.log("📦 Economy shipping: $9.99");
+}
