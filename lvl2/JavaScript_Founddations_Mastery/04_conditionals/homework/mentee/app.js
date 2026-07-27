@@ -58,6 +58,8 @@ if (isExtraCredit) {
     console.log(`No extra credit.`)
 }
 
+console.log(`The final earned score is ${earnedScore}%`)
+
 // ----------------------------------------------------------
 // TASK 3 — Calculate the percentage (operators)
 // ----------------------------------------------------------
@@ -92,6 +94,8 @@ if (percentage >= 90){
 } else {
     console.log("Grade: F ❌")
 }
+
+// the order matters because if 80 was before 90 and the student had a score of 95, they would get a B grade because of it wouldn't check for another condition after one is true.
 
 // ----------------------------------------------------------
 // TASK 5 — Pass or fail (if/else + operators)
