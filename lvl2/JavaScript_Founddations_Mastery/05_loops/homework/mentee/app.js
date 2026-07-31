@@ -37,6 +37,17 @@
 //
 // Log: "🛒 " + storeName + " — Cart started"
 
+const storeName = "QuickShop"; // not subject to change
+let budget = 100; // budget can change
+let itemLimit = 30; // the limit can change depending on the day
+const discountThreshold = 80; // not subject to change
+const discountRate = 0.10; // the discount stays the same
+let cartTotal = 0; // changes with number of items added
+let itemsAdded = 0; // this also changes
+let itemsSkipped = 0; // changes as well
+
+console.log(`🛒 ${storeName} - Cart started`)
+ 
 // ----------------------------------------------------------
 // TASK 2 — Declare your item prices
 // ----------------------------------------------------------
@@ -47,6 +58,14 @@
 //   item4Price → 8
 //   item5Price → 42
 //   item6Price → 28
+
+const item1Price = 22;
+const item2Price = 35;
+const item3Price = 15;
+const item4Price = 8;
+const item5Price = 42;
+const item6Price = 28;
+
 
 // ----------------------------------------------------------
 // TASK 3 — Loop through the items
@@ -67,6 +86,33 @@
 //     - increment itemsAdded using ++
 //     - log: "✅ Item " + i + " added ($" + currentPrice + ") | Cart: $" + cartTotal
 
+for (let i = 1; i <= 6; i++) {
+    let currentPrice = 0;
+    if (i === 1) {
+        currentPrice = item1Price;
+    } else if (i === 2) {
+        currentPrice = item2Price;
+    } else if (i === 3) {
+        currentPrice = item3Price;
+    } else if (i === 4) {
+        currentPrice = item4Price;
+    } else if (i === 5) {
+        currentPrice = item5Price;
+    } else if (i === 6) {
+        currentPrice = item6Price;
+    }
+
+    if (currentPrice > itemLimit) {
+        console.log("⛔ Item " + i + " ($" + currentPrice + ") exceeds limit of $" + itemLimit)
+        itemsSkipped++;
+        continue;
+    } else {
+        cartTotal += currentPrice;
+        itemsAdded++;
+        console.log("✅ Item " + i + " added ($" + currentPrice + ") | Cart: $" + cartTotal)
+    }
+}
+
 // ----------------------------------------------------------
 // TASK 4 — Apply the discount (after the loop)
 // ----------------------------------------------------------
@@ -80,6 +126,15 @@
 //   ELSE:
 //     - log: "No discount applied. Total: $" + cartTotal
 
+if (cartTotal > discountThreshold) {
+    const discountAmount = cartTotal * discountRate;
+    cartTotal -= discountAmount;
+    console.log(`🏷️  Discount applied: -$${discountAmount}`);
+    console.log(`💰 Total after discount: $${cartTotal}`);
+} else {
+    console.log(`No discount applied. Total: $${cartTotal}`);
+}
+
 // ----------------------------------------------------------
 // TASK 5 — Budget check
 // ----------------------------------------------------------
@@ -89,6 +144,12 @@
 //   ELSE:
 //     log: "❌ Over budget by $" + (cartTotal - budget)
 
+if (cartTotal <= budget) {
+    console.log(`✅ Within budget! Total: $${cartTotal} / $${budget}`);
+} else {
+    console.log(`❌ Over budget by $${cartTotal - budget}`)
+}
+
 // ----------------------------------------------------------
 // TASK 6 — Cart summary
 // ----------------------------------------------------------
@@ -96,6 +157,10 @@
 //   "📦 Items added:   " + itemsAdded
 //   "🚫 Items skipped: " + itemsSkipped
 //   "🛒 Final total:   $" + cartTotal
+
+console.log("📦 Items added:   " + itemsAdded);
+console.log("🚫 Items skipped: " + itemsSkipped);
+console.log("🛒 Final total:   $" + cartTotal);
 
 // ----------------------------------------------------------
 // TASK 7 — while loop: restock counter
@@ -110,6 +175,16 @@
 //   - Log: "📦 Restocked. Stock now: " + stock
 //
 // After the loop, log: "✅ Fully restocked: " + stock + " units"
+
+let stock = 3;
+const restockAmount = 10;
+const maxStock = 50;
+
+while (stock < maxStock) {
+    stock += restockAmount;
+    console.log("📦 Restocked. Stock now: " + stock)
+}
+console.log("✅ Fully restocked: " + stock + " units")
 
 // ----------------------------------------------------------
 // TASK 8 — Connect the dots: find the first affordable item
@@ -127,6 +202,34 @@
 //
 // After the loop:
 //   IF found is false: log "😞 No affordable items found under $" + maxAffordable
+
+let found = false;
+const maxAffordable = 20;
+
+for (let i = 1; i <= 6; i++) {
+    if (i === 1) {
+        currentPrice = item1Price;
+    } else if (i === 2) {
+        currentPrice = item2Price;
+    } else if (i === 3) {
+        currentPrice = item3Price;
+    } else if (i === 4) {
+        currentPrice = item4Price;
+    } else if (i === 5) {
+        currentPrice = item5Price;
+    } else if (i === 6) {
+        currentPrice = item6Price;
+    }
+    
+    if (currentPrice <= maxAffordable && found === false) {
+        console.log("🎯 First affordable item: Item " + i + " at $" + currentPrice);
+        found = true;
+        break;
+    }
+}
+if (found === false) {
+    console.log("😞 No affordable items found under $" + maxAffordable)
+}
 
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL — Loyalty points
@@ -148,3 +251,37 @@
 //   log: "⭐ Item " + i + " earned " + currentPrice + " pts"
 //
 // After the loop, log: "🏆 Total loyalty points: " + loyaltyPoints
+
+let loyaltyPoints = 0;
+
+for (let i = 1; i <= 6; i++) {
+    if (i === 1) {
+        currentPrice = item1Price;
+    } else if (i === 2) {
+        currentPrice = item2Price;
+    } else if (i === 3) {
+        currentPrice = item3Price;
+    } else if (i === 4) {
+        currentPrice = item4Price;
+    } else if (i === 5) {
+        currentPrice = item5Price;
+    } else if (i === 6) {
+        currentPrice = item6Price;
+    }
+
+    if (currentPrice > itemLimit) {
+        console.log("The item's price is over the limit")
+        itemsSkipped++;
+        continue;
+    }
+
+    if (currentPrice < 15) {
+        loyaltyPoints += currentPrice * 2;
+        console.log("⭐⭐ Double points for item " + i + "! +" + (currentPrice * 2) + " pts")
+    } else {
+        loyaltyPoints += currentPrice;
+        console.log("⭐ Item " + i + " earned " + currentPrice + " pts")
+    }
+}
+
+console.log("🏆 Total loyalty points: " + loyaltyPoints)

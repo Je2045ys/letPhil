@@ -11,13 +11,17 @@
 // This loop should count from 1 to 5 but it stops at 4.
 // What's wrong?
 
-for (let i = 1; i < 5; i++) {
-  console.log(i);
-}
+// for (let i = 1; i < 5; i++) {
+//   console.log(i);
+// }
 
 // What's wrong ↓
+// it should be <= instead of <
 
 // Your fix ↓
+for (let i = 1; i <= 5; i++) {
+  console.log(i);
+}
 
 // change < to this <=
 // ----------------------------------------------------------

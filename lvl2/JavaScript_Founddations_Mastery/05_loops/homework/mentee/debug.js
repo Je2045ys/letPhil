@@ -12,13 +12,17 @@
 // This loop should log numbers 1 through 10.
 // It only logs 1 through 9. What's wrong?
 
-for (let i = 1; i < 10; i++) {
-  console.log(i);
-}
+// for (let i = 1; i < 10; i++) {
+//   console.log(i);
+// }
 
 // What's wrong ↓
+// it should be <= instead of <
 
 // Your fix ↓
+for (let i = 1; i <= 10; i++) {
+  console.log(i);
+}
 
 
 // ----------------------------------------------------------
@@ -27,15 +31,21 @@ for (let i = 1; i < 10; i++) {
 // This loop should calculate the sum of 1 through 5 (answer: 15).
 // It always logs 0. What's wrong?
 
+// for (let i = 1; i <= 5; i++) {
+//   let total = 0;
+//   total += i;
+// }
+// console.log("Sum: " + total);
+
+// What's wrong ↓
+// total should be initialized before the loop
+
+// Your fix ↓
+let total = 0;
 for (let i = 1; i <= 5; i++) {
-  let total = 0;
   total += i;
 }
 console.log("Sum: " + total);
-
-// What's wrong ↓
-
-// Your fix ↓
 
 
 // ----------------------------------------------------------
@@ -60,3 +70,4 @@ console.log("Done!");
 // Bug 2 ↓
 
 // Your fix ↓
+// the code works perfectly! nothing to be fixed.
