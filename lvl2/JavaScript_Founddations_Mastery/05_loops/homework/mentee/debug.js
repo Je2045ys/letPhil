@@ -56,18 +56,27 @@ console.log("Sum: " + total);
 // Instead it logs nothing and skips straight to "Done!".
 // There are TWO bugs. Find both.
 
+// for (let i = 1; i <= 10; i++) {
+//   if (i % 2 === 0) {
+//     console.log(i);
+//   } else {
+//     continue;
+//   }
+// }
+// console.log("Done!");
+
+// Bug 1 ↓
+// the modulo used here is to check even numbers instead of odd
+
+// Bug 2 ↓
+// the continue is in the wrong block
+
+// Your fix ↓
 for (let i = 1; i <= 10; i++) {
   if (i % 2 === 0) {
-    console.log(i);
-  } else {
     continue;
+  } else {
+    console.log(i);
   }
 }
 console.log("Done!");
-
-// Bug 1 ↓
-
-// Bug 2 ↓
-
-// Your fix ↓
-// the code works perfectly! nothing to be fixed.

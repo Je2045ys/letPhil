@@ -12,13 +12,17 @@
 // This should log the middle element ("C") of the array.
 // Instead it logs undefined. What's wrong?
 
-const letters = ["A", "B", "C", "D", "E"];
-const middleIndex = letters.length / 2;
-console.log(letters[middleIndex]);
+// const letters = ["A", "B", "C", "D", "E"];
+// const middleIndex = letters.length / 2;
+// console.log(letters[middleIndex]);
 
 // What's wrong ↓
+// the length is an odd number so divided by 2, it is a decimal. we need to use parseInt
 
 // Your fix ↓
+const letters = ["A", "B", "C", "D", "E"];
+const middleIndex = letters.length / 2;
+console.log(letters[parseInt(middleIndex)]);
 
 
 // ----------------------------------------------------------
@@ -27,18 +31,27 @@ console.log(letters[middleIndex]);
 // This loop should build a total of all prices.
 // It logs NaN instead of a number. What's wrong?
 
+// const prices = [10, 20, 30, 40];
+// let total = 0;
+
+// for (let i = 0; i <= prices.length; i++) {
+//   total += prices[i];
+// }
+
+// console.log("Total: $" + total);
+
+// What's wrong ↓
+// used <= instead of <
+
+// Your fix ↓
 const prices = [10, 20, 30, 40];
 let total = 0;
 
-for (let i = 0; i <= prices.length; i++) {
+for (let i = 0; i < prices.length; i++) {
   total += prices[i];
 }
 
 console.log("Total: $" + total);
-
-// What's wrong ↓
-
-// Your fix ↓
 
 
 // ----------------------------------------------------------
@@ -48,11 +61,33 @@ console.log("Total: $" + total);
 // and log the winner's name. It always logs the wrong winner.
 // There are TWO bugs. Find both.
 
+// const names  = ["Alice", "Bob", "Carol", "Dave"];
+// const scores = [82, 91, 78, 95];
+
+// let topIndex  = 1;
+// let topScore  = 0;
+
+// for (let i = 0; i < scores.length; i++) {
+//   if (scores[i] > topScore) {
+//     topScore = scores[i];
+//     topIndex = i;
+//   }
+// }
+
+// console.log("Winner: " + names[topIndex] + " with " + topScore);
+
+// Bug 1 ↓
+// let topIndex  = 1
+
+// Bug 2 ↓
+// let topScore  = 0;
+
+// Your fix ↓
 const names  = ["Alice", "Bob", "Carol", "Dave"];
 const scores = [82, 91, 78, 95];
 
-let topIndex  = 1;
-let topScore  = 0;
+let topIndex  = 0;
+let topScore  = scores[0];
 
 for (let i = 0; i < scores.length; i++) {
   if (scores[i] > topScore) {
@@ -62,9 +97,3 @@ for (let i = 0; i < scores.length; i++) {
 }
 
 console.log("Winner: " + names[topIndex] + " with " + topScore);
-
-// Bug 1 ↓
-
-// Bug 2 ↓
-
-// Your fix ↓
