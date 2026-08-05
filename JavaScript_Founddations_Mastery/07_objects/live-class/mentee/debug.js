@@ -5,7 +5,6 @@
 // what was wrong as a comment.
 // ============================================================
 
-
 // ----------------------------------------------------------
 // 🟢 DEBUG 1 — Easy
 // ----------------------------------------------------------
@@ -14,15 +13,15 @@
 const user = {
   name: "Jordan",
   age: 29,
-  email: "jordan@email.com"
+  email: "jordan@email.com",
 };
 
 console.log(user.Email);
 
 // What's wrong ↓
-
+// keys are case sensitive - key should be email
 // Your fix ↓
-
+// console.log(user.email);
 
 // ----------------------------------------------------------
 // 🟡 DEBUG 2 — Medium
@@ -33,16 +32,16 @@ console.log(user.Email);
 const product = {
   name: "Keyboard",
   price: 79.99,
-  inStock: true
+  inStock: true,
 };
 
 const key = "price";
 console.log(product.key);
 
 // What's wrong ↓
-
+// key is not a key in the object.
 // Your fix ↓
-
+// console.log(product[key]);
 
 // ----------------------------------------------------------
 // 🔴 DEBUG 3 — Hard
@@ -54,7 +53,7 @@ console.log(product.key);
 const person = {
   name: "Taylor",
   age: 31,
-  city: "Denver"
+  city: "Denver",
 };
 
 for (let value of person) {
@@ -64,3 +63,7 @@ for (let value of person) {
 // What's wrong ↓
 
 // Your fix ↓
+
+// for (let key in person) {
+//   console.log(key + ": " + person[key]);
+// }
