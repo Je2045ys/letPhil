@@ -262,7 +262,7 @@ console.log(
 );
 
 // ----------------------------------------------------------
-// PART 5 — ARRAYS OF OBJECTS (connect Lessons 6 & 7)
+// PART 5 — ARRAYS OF OBJECTS (connect Lessons 5 & 6)
 // ----------------------------------------------------------
 // The most common data pattern in real JavaScript:
 // an ARRAY where each element IS an object.
@@ -289,13 +289,7 @@ console.log(
 // Log the name of the second contact: contacts[1].name
 // Log the email of the last contact using .length - 1
 
-const contacts = [contact1, contact2, contact3];
-
-console.log("Total contacts: " + contacts.length);
-console.log(contacts[1].name);
-console.log(contacts[2].email);
-
-// TASK 9 — Loop through array of objects (connect Lessons 5, 6, 7)
+// TASK 9 — Loop through array of objects (connect Lessons 4, 5, 6)
 // Using the contacts array:
 // Write a for loop through all contacts.
 // On each iteration log a formatted contact card:
@@ -303,13 +297,6 @@ console.log(contacts[2].email);
 //   "Name:  " + contacts[i].name
 //   "Email: " + contacts[i].email
 //   "City:  " + contacts[i].city
-
-for (let i = 0; i < contacts.length; i++) {
-  console.log("--- Contact " + (i + 1) + " ---");
-  console.log("Name: " + contacts[i].name);
-  console.log("Email: " + contacts[i].email);
-  console.log("City: " + contacts[i].city);
-}
 
 // TASK 10 — Full connect the dots (all 6 lessons)
 // Declare a const called employees — an array of 4 objects.
@@ -336,50 +323,3 @@ for (let i = 0; i < contacts.length; i++) {
 // After the loop:
 //   Log: "Total salary budget: $" + totalSalary
 //   Log: "Full-time: " + fullTimeCount + " | Part-time: " + partTimeCount
-
-const employees = [
-  {
-    name: "Lamuel",
-    department: "Engineering",
-    salary: 120000,
-    isFullTime: true,
-  },
-  {
-    name: "Bob",
-    department: "Sales",
-    salary: 80000,
-    isFullTime: false,
-  },
-  {
-    name: "Charles",
-    department: "Design",
-    salary: 40000,
-    isFullTime: true,
-  },
-];
-
-let totalSalary = 0;
-let fullTimeCount = 0;
-let partTimeCount = 0;
-
-for (let i = 0; i < employees.length; i++) {
-  const employee = employees[i];
-  totalSalary += employee.salary;
-  if (employee.isFullTime) {
-    fullTimeCount += 1;
-  } else {
-    partTimeCount += 1;
-  }
-  console.log(
-    employee.name +
-      " (" +
-      employee.department +
-      ")" +
-      " - $" +
-      employee.salary +
-      (employee.isFullTime ? " [Full-time]" : " [Part-time]"),
-  );
-}
-
-console.log(`Total salary budget: $${totalSalary}`);
-console.log(`Full-time: ${fullTimeCount} | Part-time: ${partTimeCount}`);
