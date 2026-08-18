@@ -126,6 +126,11 @@ console.log(formatName("Amy", "Nguyen"));
 // - Hoisted — can be called before it's defined
 // - Best for: main named functions in your program
 
+function squareDeclaration(n) {
+  return n * n;
+}
+console.log(squareDeclaration(5)); // 25
+
 // ── 2. FUNCTION EXPRESSION ──
 // A function stored in a variable.
 // It's still a named variable — but the function itself
@@ -140,6 +145,12 @@ console.log(formatName("Amy", "Nguyen"));
 // NOT hoisted — you cannot call it before this line.
 // Best for: functions you assign, pass around, or export.
 
+const cubedDeclaration = function (n) {
+  return n * n;
+};
+
+console.log(cubedDeclaration(8));
+
 // ── 3. ANONYMOUS FUNCTION ──
 // A function with NO name — used as a value directly.
 // You've been writing these since Lesson 8 without knowing it!
@@ -151,6 +162,28 @@ console.log(formatName("Amy", "Nguyen"));
 // The function has no name of its own.
 // It only exists as the argument being passed in.
 // Best for: one-time callbacks passed to array methods.
+
+const square = [3, 4, 5];
+
+console.log(
+  square.map(function (n) {
+    return n * n;
+  }),
+);
+
+// const numberArray = [3, 4, 5];
+
+// const squaredArray = numberArray.map(function (num) {
+//   return num * num;
+// });
+
+// console.log(squaredArray);
+
+// const squaredArray = [3, 4, 5].map(function (num) {
+//   return num * num;
+// });
+
+// console.log(squaredArray);
 
 // ── 4. ARROW FUNCTION ──
 // The modern shorthand — always stored in a variable.
@@ -164,8 +197,16 @@ console.log(formatName("Amy", "Nguyen"));
 // KEY NOTE: If body is ONE expression → skip braces, skip return (implicit).
 //           If body has MULTIPLE lines → add braces, add return.
 
+const squaredArray = square.map((n) => n * n);
+console.log(squaredArray);
+
+const squaredArray2 = (num) => num * num;
+
+console.log(squaredArray2(5));
+
 // TASK 5 — Write the SAME function four different ways
 // The function: takes a number n, returns n * n (squared)
+
 //
 // Write it as:
 //   a) A function DECLARATION called squareDeclaration
@@ -201,6 +242,13 @@ console.log(formatName("Amy", "Nguyen"));
 //   createTag("alex")          → "[MEMBER] alex"
 //   createTag("alex", "admin") → "[ADMIN] alex"
 
+function jobTitle(name, job = "employee") {
+  return "[" + job.toUpperCase() + "]" + name;
+}
+
+console.log(jobTitle("Eddie")); // Eddie
+console.log(jobTitle("Eddie", "Manager")); // Manager, Eddie
+
 // TASK 7
 // Declare a function called createUserTag.
 // Parameters: username, role = "member"
@@ -209,6 +257,14 @@ console.log(formatName("Amy", "Nguyen"));
 // Call with ("alexdev", "admin")  → [ADMIN] alexdev
 // Call with ("newuser")           → [MEMBER] newuser
 // Call with ("modteam", "mod")    → [MOD] modteam
+
+function createUserTag(username, role = "member") {
+  return "[" + role.toUpperCase() + "]" + username;
+}
+
+console.log(createUserTag("alexdev", "admin")); // [ADMIN] alexdev
+console.log(createUserTag("newuser")); // [MEMBER] newuser
+console.log(createUserTag("modteam", "mod")); // [MOD] modteam
 
 // ----------------------------------------------------------
 // PART 5 — TERNARY OPERATOR
@@ -231,13 +287,29 @@ console.log(formatName("Amy", "Nguyen"));
 //
 // a) canAccess — parameter: age
 //    returns: age >= 18 ? "✅ Access granted" : "❌ Access denied"
+
+const canAccess = (age) =>
+  age >= 18 ? "✅ Access granted" : "❌ Access denied";
+console.log(canAccess(18)); // access granted
+console.log(canAccess(25)); // access granted
+console.log(canAccess(12)); // access denied
+
 //
 // b) getStatusLabel — parameter: isActive
 //    returns: isActive ? "🟢 Online" : "🔴 Offline"
 //
+
+const getStatusLabel = (isActive) =>
+  isActive === true ? "🟢 Online" : "🔴 Offline";
+console.log(getStatusLabel(true)); // online
+console.log(getStatusLabel(false)); // offline
+
 // c) getDiscountLabel — parameter: isPremium
 //    returns: isPremium ? "10% off" : "No discount"
-//
+const getDiscountLabel = (isPremium) => (isPremium ? "10% off" : "No discount");
+console.log(getDiscountLabel(true)); // 10% off
+console.log(getDiscountLabel(false)); // No discount
+
 // Call each with at least 2 different values and log the results.
 
 // ----------------------------------------------------------
@@ -265,6 +337,28 @@ console.log(formatName("Amy", "Nguyen"));
 // Write a comment: what's the difference between
 // passing isAboveFive vs passing isAboveFive()?
 
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+const squaredNumbers = numbers.map((n) => n * n);
+console.log(squaredNumbers); // 1,4,9.16,25, etc
+
+const evenNumbers = numbers.filter((n) => n % 2 === 0);
+console.log(evenNumbers); // 2,4,6,8,10
+
+const totalNumbers = numbers.reduce(
+  (acc, currentValue) => acc + currentValue,
+  0,
+);
+console.log(totalNumbers); // 55
+
+const isAboveFive = function (n) {
+  return n > 5;
+};
+
+const aboveFive = numbers.filter(isAboveFive);
+
+console.log(aboveFive); // 6,7,8,9,10
+
 // ----------------------------------------------------------
 // PART 7 — CONNECT THE DOTS (all 9 lessons)
 // ----------------------------------------------------------
@@ -287,3 +381,46 @@ console.log(formatName("Amy", "Nguyen"));
 //   + " | Grade: " + result.grade
 //   + " | " + (result.passed ? "✅ Passed" : "❌ Failed")
 //    ↑ use a ternary here for the passed label
+
+function gradeReport(studentName, scores) {
+  const total = scores.reduce((acc, currentValue) => acc + currentValue, 0);
+  const average = total / scores.length;
+
+  let grade;
+  if (average >= 90) {
+    grade = "A";
+  } else if (average >= 80) {
+    grade = "B";
+  } else if (average >= 70) {
+    grade = "C";
+  } else if (average >= 60) {
+    grade = "D";
+  } else {
+    grade = "F";
+  }
+
+  return {
+    name: studentName,
+    average,
+    grade,
+    passed: average >= 60,
+  };
+}
+
+const firstReport = gradeReport("Eddie Chen", [99, 77, 44, 55, 100]);
+const secondReport = gradeReport("Darrel", [100, 100, 100, 100, 100]);
+const thirdReport = gradeReport("Jocelin", [95, 98, 90, 100, 89]);
+
+[firstReport, secondReport, thirdReport].forEach(function (result) {
+  console.log(
+    result.name +
+      " | average: " +
+      result.average +
+      " | grade: " +
+      result.grade +
+      " | " +
+      (result.passed ? "✅ Passed" : "❌ Failed"),
+  );
+});
+
+// Eddie Chen | Avg 87.6 | Grade: B | ✅ Passed
