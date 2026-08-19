@@ -2,21 +2,17 @@
 // 🐛  FUNCTIONS — LIVE CLASS  |  DEBUG TASKS
 // ============================================================
 
-
 // ----------------------------------------------------------
 // 🟢 DEBUG 1 — Easy
 // ----------------------------------------------------------
 // This should log "Hello, Alex!" but throws a ReferenceError.
 // What's wrong and how do you fix it?
 
-console.log(greet("Alex"));
-
 const greet = (name) => "Hello, " + name + "!";
-
+console.log(greet("Alex"));
 // What's wrong ↓
 
 // Your fix ↓
-
 
 // ----------------------------------------------------------
 // 🟡 DEBUG 2 — Medium
@@ -25,18 +21,23 @@ const greet = (name) => "Hello, " + name + "!";
 // applyDiscount, but it stays at 100. Why?
 
 function applyDiscount(price, discount) {
-  price = price - discount;
+  return (price = price - discount);
 }
 
 let itemPrice = 100;
-applyDiscount(itemPrice, 20);
+itemPrice = applyDiscount(itemPrice, 20);
 console.log("Price after discount: $" + itemPrice);
 
 // What's wrong ↓
 
 // Your fix ↓
+// function applyDiscount(price, discount) {
+//   return price - discount;
+// }
 
-
+// let itemPrice = 100;
+// itemPrice = applyDiscount(itemPrice, 20);
+// console.log("Price after discount: $" + itemPrice);
 // ----------------------------------------------------------
 // 🔴 DEBUG 3 — Hard
 // ----------------------------------------------------------
@@ -44,19 +45,20 @@ console.log("Price after discount: $" + itemPrice);
 // It works for "gold" and "silver" but returns undefined for
 // everything else. There are TWO bugs — find both.
 
-function getMemberLabel(tier) {
+function getMemberLabel(tier = "bronze") {
   if (tier === "gold") {
     return "🥇 Gold Member";
   }
   if (tier === "silver") {
     return "🥈 Silver Member";
   }
+  return "Bronze Member";
 }
 
-console.log(getMemberLabel("gold"));    // ✅ works
-console.log(getMemberLabel("silver"));  // ✅ works
-console.log(getMemberLabel("bronze"));  // ❌ undefined
-console.log(getMemberLabel());          // ❌ undefined
+console.log(getMemberLabel("gold")); // ✅ works
+console.log(getMemberLabel("silver")); // ✅ works
+console.log(getMemberLabel("bronze")); // ❌ undefined // Bronze Member
+console.log(getMemberLabel()); // ❌ undefined // Bronze Member
 
 // Bug 1 ↓
 
