@@ -34,8 +34,8 @@
 
 const className = "JavaScript Fundamentals"; // not subject to change
 const passingScore = 60; // not subject to change
-let studentNames = ["Jessy", "Sonia", "Nice", "Umwali", "Yann", "Samy"]; // this changes
-let studentScores = [74, 58, 92, 65, 81, 47]; // scores change
+const studentNames = ["Jessy", "Sonia", "Nice", "Umwali", "Yann", "Samy"]; 
+const studentScores = [74, 58, 92, 65, 81, 47]; 
 
 console.log(`📚 ${className}`);
 console.log(`Students enrolled: ${studentNames.length}`);
@@ -119,7 +119,8 @@ for (let i = 0; i < studentScores.length; i++) {
     totalScore += studentScores[i];
     if (studentScores[i] > highScore) {
         highScore = studentScores[i]; 
-    } else if (studentScores[i] < lowScore) {
+    } 
+    if (studentScores[i] < lowScore) {
         lowScore = studentScores[i];
     } 
     
