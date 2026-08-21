@@ -12,18 +12,27 @@
 // This should create a new array of prices with tax added (10%).
 // Instead it logs an array of undefined. What's wrong?
 
+// const prices = [29.99, 49.99, 14.99, 99.99];
+
+// const withTax = prices.map(function(price) {
+//   const taxed = price * 1.10;
+//   console.log(taxed);
+// });
+
+// console.log("With tax:", withTax);
+
+// What's wrong ↓
+// console.logged instead of a return
+
+// Your fix ↓
 const prices = [29.99, 49.99, 14.99, 99.99];
 
 const withTax = prices.map(function(price) {
   const taxed = price * 1.10;
-  console.log(taxed);
+  return Number(taxed.toFixed(2));
 });
 
 console.log("With tax:", withTax);
-
-// What's wrong ↓
-
-// Your fix ↓
 
 
 // ----------------------------------------------------------
@@ -32,6 +41,23 @@ console.log("With tax:", withTax);
 // This should return only the pending orders.
 // But it returns an empty array. Why?
 
+// const orders = [
+//   { id: 1, status: "delivered" },
+//   { id: 2, status: "pending"   },
+//   { id: 3, status: "pending"   },
+//   { id: 4, status: "cancelled" }
+// ];
+
+// const pending = orders.filter(function(order) {
+//   return order.status = "pending";
+// });
+
+// console.log(pending);
+
+// What's wrong ↓
+// we are setting the status to "pending". should use === instead of =
+
+// Your fix ↓
 const orders = [
   { id: 1, status: "delivered" },
   { id: 2, status: "pending"   },
@@ -40,15 +66,10 @@ const orders = [
 ];
 
 const pending = orders.filter(function(order) {
-  return order.status = "pending";
+  return order.status === "pending";
 });
 
 console.log(pending);
-
-// What's wrong ↓
-
-// Your fix ↓
-
 
 // ----------------------------------------------------------
 // 🔴 DEBUG 3 — Hard
@@ -57,6 +78,28 @@ console.log(pending);
 // (quantity × price for each). It produces a wrong result.
 // There are TWO bugs.
 
+// const lineItems = [
+//   { product: "Shirt",  quantity: 2, price: 29.99 },
+//   { product: "Jeans",  quantity: 1, price: 59.99 },
+//   { product: "Jacket", quantity: 3, price: 89.99 }
+// ];
+
+// const orderTotal = lineItems.reduce(function(acc, item) {
+//   return acc + item.quantity * item.price;
+// });
+
+// console.log("Order total: $" + orderTotal);
+
+// Bug 1 ↓
+// we did not set the start value for the accumulator
+
+// Bug 2 ↓
+// Hint: run it and read the output carefully.
+// What is the value on the first iteration?
+// $[object Object]59.99269.96999999999997
+// the multiplication has to be grouped inside ()
+
+// Your fix ↓
 const lineItems = [
   { product: "Shirt",  quantity: 2, price: 29.99 },
   { product: "Jeans",  quantity: 1, price: 59.99 },
@@ -64,15 +107,7 @@ const lineItems = [
 ];
 
 const orderTotal = lineItems.reduce(function(acc, item) {
-  return acc + item.quantity * item.price;
-});
+  return acc + (item.quantity * item.price);
+}, 0);
 
-console.log("Order total: $" + orderTotal);
-
-// Bug 1 ↓
-
-// Bug 2 ↓
-// Hint: run it and read the output carefully.
-// What is the value on the first iteration?
-
-// Your fix ↓
+console.log("Order total: $" + orderTotal.toFixed(2));
