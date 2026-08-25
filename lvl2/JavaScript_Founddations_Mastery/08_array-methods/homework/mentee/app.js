@@ -115,7 +115,11 @@ receipts.forEach((receipt) => {
 // Log summaries.
 
 const summaries = orders.map((order) => {
-  return "id: " + order.id + ", " + "customer: " + order.customer + ", " + "total: " + order.total
+  return {
+    id: order.id, 
+    customer: order.customer, 
+    total: order.total
+  }
 })
 
 summaries.forEach((summary) => {

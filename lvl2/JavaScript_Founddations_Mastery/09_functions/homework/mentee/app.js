@@ -82,6 +82,8 @@ const users = [
 // Call it twice with different data. Log both results.
 // Write a comment: why is isPremium = false a good default here?
 
+
+
 // ----------------------------------------------------------
 // TASK 2 — isValidUser  [FUNCTION EXPRESSION]
 // ----------------------------------------------------------
