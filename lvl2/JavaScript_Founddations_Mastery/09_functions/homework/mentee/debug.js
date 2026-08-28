@@ -8,17 +8,28 @@
 // This arrow function should return the full name
 // but always returns undefined. What's wrong?
 
-const getFullName = (first, last) => {
-  first + " " + last;
-};
+// const getFullName = (first, last) => {
+//   first + " " + last;
+// };
 
-console.log(getFullName("Alex", "Rivera"));
+// console.log(getFullName("Alex", "Rivera"));
 
 // What's wrong ↓
+// no return
 
 // Your fix — write TWO versions:
 //   a) Fix by adding return inside the braces
 //   b) Fix by removing the braces (one-liner implicit return)
+
+// const getFullName = (first, last) => {
+//   return first + " " + last;
+// };
+
+// console.log(getFullName("Alex", "Rivera"));
+
+const getFullName = (first, last) => first + " " + last;
+
+console.log(getFullName("Alex", "Rivera"));
 
 // ----------------------------------------------------------
 // 🟡 DEBUG 2 — Medium
@@ -27,27 +38,45 @@ console.log(getFullName("Alex", "Rivera"));
 // depending on role. It works for "admin" but returns
 // undefined for everything else. What's wrong?
 
-function getRoleLabel(role) {
-  if (role === "admin") {
-    return "Admin";
-  } else if (role === "mod") {
-    ("Moderator");
-  } else {
-    ("Member");
-  }
-}
+// function getRoleLabel(role) {
+//   if (role === "admin") {
+//     return "Admin";
+//   } else if (role === "mod") {
+//     ("Moderator");
+//   } else {
+//     ("Member");
+//   }
+// }
+
+// console.log(getRoleLabel("admin")); // "Admin" ✅
+// console.log(getRoleLabel("mod")); // undefined ❌
+// console.log(getRoleLabel("member")); // undefined ❌
+
+// What's wrong ↓
+// no return after the if statement
+
+// Your fix ↓
+
+// function getRoleLabel(role) {
+//   if (role === "admin") {
+//     return "Admin";
+//   } else if (role === "mod") {
+//     return ("Moderator");
+//   } else {
+//     return ("Member");
+//   }
+// }
+
+// Bonus: rewrite the whole function as an arrow function
+// using nested ternaries (just to see what it looks like —
+// then write a comment about whether you'd actually use it).
+
+const getRoleLabel = role => role === "admin" ? "Admin" : role === "mod" ? "Moderator" : "Member" // no I wouldn't
 
 console.log(getRoleLabel("admin")); // "Admin" ✅
 console.log(getRoleLabel("mod")); // undefined ❌
 console.log(getRoleLabel("member")); // undefined ❌
 
-// What's wrong ↓
-
-// Your fix ↓
-
-// Bonus: rewrite the whole function as an arrow function
-// using nested ternaries (just to see what it looks like —
-// then write a comment about whether you'd actually use it).
 
 // ----------------------------------------------------------
 // 🔴 DEBUG 3 — Hard
@@ -55,17 +84,27 @@ console.log(getRoleLabel("member")); // undefined ❌
 // This discount calculator has TWO bugs.
 // Both cause wrong math — find them both.
 
+// const applyDiscount = (price, discountPercent = 10) => {
+//   const discountAmount = price * discountPercent;
+//   const finalPrice = price + discountAmount;
+//   return finalPrice;
+// };
+
+// console.log(applyDiscount(100, 20)); // expected: 80
+// console.log(applyDiscount(50)); // expected: 45
+
+// Bug 1 (math) ↓
+// In discountAmount, need to divide by 100; 10%
+
+// Bug 2 (math) ↓
+// finalPrice - instead of +
+
+// Your fix ↓
 const applyDiscount = (price, discountPercent = 10) => {
-  const discountAmount = price * discountPercent;
-  const finalPrice = price + discountAmount;
+  const discountAmount = price * discountPercent/100;
+  const finalPrice = price - discountAmount;
   return finalPrice;
 };
 
 console.log(applyDiscount(100, 20)); // expected: 80
 console.log(applyDiscount(50)); // expected: 45
-
-// Bug 1 (math) ↓
-
-// Bug 2 (math) ↓
-
-// Your fix ↓
