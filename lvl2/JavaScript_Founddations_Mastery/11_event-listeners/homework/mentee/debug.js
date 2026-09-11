@@ -13,17 +13,25 @@
 // Instead it logs the title immediately when the page loads,
 // then does nothing when you click. What's wrong?
 
+// function logTitle() {
+//   const title = document.getElementById("task-title-input").value;
+//   console.log("Title: " + title);
+// }
+
+// document.getElementById("add-task-btn")
+//   .addEventListener("click", logTitle());
+
+// What's wrong ↓
+// when wiring it up we called the function with () which passes the result of the function not the function itself
+
+// Your fix ↓
 function logTitle() {
   const title = document.getElementById("task-title-input").value;
   console.log("Title: " + title);
 }
 
 document.getElementById("add-task-btn")
-  .addEventListener("click", logTitle());
-
-// What's wrong ↓
-
-// Your fix ↓
+  .addEventListener("click", logTitle);
 
 
 // ----------------------------------------------------------
@@ -33,26 +41,41 @@ document.getElementById("add-task-btn")
 // Clicking "High" hides all tasks instead of showing only high ones.
 // What's wrong with the condition?
 
+// function handleFilter(event) {
+//   const filter  = event.target.dataset.filter;
+//   const allCards = document.querySelectorAll(".task-card");
+
+//   allCards.forEach(function(card) {
+//     if (card.dataset.priority !== filter) {
+//       card.classList.remove("hidden");
+//     } else {
+//       card.classList.add("hidden");
+//     }
+//   });
+// }
+
+// document.querySelector(".header-right")
+//   .addEventListener("click", handleFilter);
+
+// What's wrong ↓
+// the condition is wrong because we show the card when priority of the card is !== filter and hide it when === filter
+
+// Your fix ↓
 function handleFilter(event) {
   const filter  = event.target.dataset.filter;
   const allCards = document.querySelectorAll(".task-card");
 
   allCards.forEach(function(card) {
     if (card.dataset.priority !== filter) {
-      card.classList.remove("hidden");
-    } else {
       card.classList.add("hidden");
+    } else {
+      card.classList.remove("hidden");
     }
   });
 }
 
 document.querySelector(".header-right")
   .addEventListener("click", handleFilter);
-
-// What's wrong ↓
-
-// Your fix ↓
-
 
 // ----------------------------------------------------------
 // 🔴 DEBUG 3 — Hard
@@ -61,20 +84,37 @@ document.querySelector(".header-right")
 // its Remove button is clicked. Nothing happens when clicked.
 // There are TWO bugs.
 
+// function handleBoardClick(event) {
+//   const card   = event.target.closest(".task-card");
+//   const taskId = card.dataset.id;
+
+//   if (event.target.classList.contains("remove-btn")) {
+//     card.remove();
+//   }
+// }
+
+// document.querySelector(".board")
+//   .addEventListener("click", handleBoardClick);
+
+// Bug 1 ↓
+// If card is null, it throws an error and crashes
+
+// Bug 2 ↓
+// 
+
+// Your fix ↓
 function handleBoardClick(event) {
   const card   = event.target.closest(".task-card");
   const taskId = card.dataset.id;
 
-  if (event.target.classList.contains("remove-btn")) {
+  if (!card) {
+    return
+  }
+
+  if (event.target.closest(".remove-btn")) {
     card.remove();
   }
 }
 
 document.querySelector(".board")
   .addEventListener("click", handleBoardClick);
-
-// Bug 1 ↓
-
-// Bug 2 ↓
-
-// Your fix ↓

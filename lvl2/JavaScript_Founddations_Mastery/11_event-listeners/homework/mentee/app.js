@@ -93,7 +93,45 @@ const tasks = [
 //   7. Return the <li>
 
 function createTaskCard(task) {
-  // your code here
+  const taskCard = document.createElement("li")
+  taskCard.classList.add("task-card")
+  taskCard.dataset.id = task.id
+  taskCard.dataset.priority = task.priority
+
+  const taskTitle = document.createElement("p")
+  taskTitle.classList.add("task-title")
+  taskTitle.textContent = task.title
+
+  const taskMeta = document.createElement("div")
+  taskMeta.classList.add("task-meta")
+  const prioritySpan = document.createElement("span")
+  prioritySpan.classList.add(`priority-${task.priority}`)
+  prioritySpan.textContent = task.priority.toUpperCase()
+  const assigneeSpan = document.createElement("span")
+  assigneeSpan.textContent = "👤 " + task.assignee
+  taskMeta.append(prioritySpan)
+  taskMeta.append(assigneeSpan)
+
+  const cardAction = document.createElement("div")
+  cardAction.classList.add("card-actions")
+  const completeBtn = document.createElement("button")
+  completeBtn.classList.add("complete-btn")
+  completeBtn.textContent = "✅ Complete"
+  const removeBtn = document.createElement("button")
+  removeBtn.classList.add("remove-btn")
+  removeBtn.textContent = "🗑️ Remove"
+  cardAction.append(completeBtn)
+  cardAction.append(removeBtn)
+
+  if (task.status === "done") {
+    taskCard.classList.add("completed")
+  }
+
+  taskCard.append(taskTitle)
+  taskCard.append(taskMeta)
+  taskCard.append(cardAction)
+
+  return taskCard
 }
 
 // ----------------------------------------------------------
@@ -130,11 +168,46 @@ function createTaskCard(task) {
 //   #count-done       → done.length          (just the number — no label)
 
 function updateCounts(taskList) {
-  // your code here
+  const done = taskList.filter(task => task.status === "done")
+  const pending = taskList.filter(task => task.status !== "done")
+  const todo = taskList.filter(task => task.status === "todo")
+  const inprogress = taskList.filter(task => task.status === "inprogress")
+
+  const taskCount = document.querySelector("#task-count")
+  taskCount.textContent = taskList.length + " tasks"
+  const completedCount = document.querySelector("#completed-count")
+  completedCount.textContent = "✅ " + done.length + " done"
+  const pendingCount = document.querySelector("#pending-count")
+  pendingCount.textContent = "⏳ " + pending.length + " pending"
+  const todoCount = document.querySelector("#count-todo")
+  todoCount.textContent = todo.length
+  const inprogressCount = document.querySelector("#count-inprogress")
+  inprogressCount.textContent = inprogress.length
+  const doneCount = document.querySelector("#count-done")
+  doneCount.textContent = done.length
 }
 
 function renderBoard(taskList) {
-  // your code here
+  const listTodo = document.querySelector("#list-todo")
+  const inprogressList = document.querySelector("#list-inprogress")
+  const doneList = document.querySelector("#list-done")
+  listTodo.innerHTML = ""
+  inprogressList.innerHTML = ""
+  doneList.innerHTML = ""
+
+  taskList.forEach(task => {
+    const card = createTaskCard(task);
+    if (task.status === "todo") {
+      listTodo.appendChild(card)
+    } else if (task.status === "inprogress") {
+      inprogressList.append(card)
+    } else if (task.status === "done") {
+      doneList.append(card)
+    }
+  });
+
+  updateCounts(taskList)
+
 }
 
 // ----------------------------------------------------------
@@ -161,10 +234,33 @@ function renderBoard(taskList) {
 //     .addEventListener("click", handleAddTask);
 
 function handleAddTask() {
-  // your code here
+  const title = document.querySelector("#task-title-input").value.trim()
+  const assignee = document.querySelector("#task-assignee-input").value.trim()
+  const priority = document.querySelector("#task-priority-input").value
+  const status = document.querySelector("#task-status-input").value
+
+  if (title === "") {
+    console.log("Title is required")
+    return;
+  }
+
+  const newTask = {
+    id: Date.now(),
+    title,
+    assignee: assignee || "Unassigned",
+    priority,
+    status
+  }
+
+  tasks.push(newTask)
+
+  renderBoard(tasks)
+
+  document.querySelector("#task-title-input").value = ""
+  document.querySelector("#task-assignee-input").value = ""
 }
 
-// wire up here
+document.getElementById("add-task-btn").addEventListener("click", handleAddTask)
 
 // ----------------------------------------------------------
 // TASK 4 — handleBoardClick (event delegation for complete + remove)
@@ -204,10 +300,32 @@ function handleAddTask() {
 // Write a comment: why use .closest() instead of event.target directly?
 
 function handleBoardClick(event) {
-  // your code here
+  const target = event.target
+  const card = target.closest(".task-card")
+  if (!card) {
+    return
+  }
+  const taskId = parseInt(card.dataset.id)
+  const task = tasks.find(task => {
+    return task.id === taskId
+  })
+
+  if (target.classList.contains("complete-btn")) {
+    task.status = "done"
+    card.classList.add("completed")
+    document.getElementById("list-done").append(card)
+    updateCounts(tasks)
+  }
+
+  if (target.classList.contains("remove-btn")) {
+    const index = tasks.findIndex(t => t.id === taskId)
+    tasks.splice(index, 1)
+    card.remove()
+    updateCounts(tasks)
+  }
 }
 
-// wire up here
+document.querySelector(".board").addEventListener("click", handleBoardClick)
 
 // ----------------------------------------------------------
 // TASK 5 — handleFilterClick (filter buttons)
@@ -240,10 +358,28 @@ function handleBoardClick(event) {
 // individual listeners on each button?
 
 function handleFilterClick(event) {
-  // your code here
+  const filter = event.target.dataset.filter
+  if (!filter) {
+    return
+  }
+  const filterBtns = document.querySelectorAll(".filter-btn")
+  filterBtns.forEach(btn => btn.classList.remove("active"))
+  event.target.classList.add("active")
+
+  const taskCards = document.querySelectorAll(".task-card")
+  taskCards.forEach(card => {
+    if (filter === "all") {
+      card.classList.remove("hidden")
+    } else if (card.dataset.priority === filter) {
+      card.classList.remove("hidden")
+    } else {
+      card.classList.add("hidden")
+    }
+  })
 }
 
 // wire up here
+document.querySelector(".header-right").addEventListener("click", handleFilterClick)
 
 // ----------------------------------------------------------
 // TASK 6 — handleKeyDown (keyboard shortcuts)
@@ -263,10 +399,19 @@ function handleFilterClick(event) {
 // Wire it up to document.
 
 function handleKeyDown(event) {
-  // your code here
+  if (event.key === "Escape") {
+    document.querySelector("#task-title-input").value = ""
+    document.querySelector("#task-assignee-input").value = ""
+    console.log("Inputs cleared")
+  }
+
+  if (event.key === "Enter" && event.target.id === "task-title-input") {
+    handleAddTask()
+  }
 }
 
 // wire up here
+document.addEventListener("keydown", handleKeyDown)
 
 // ----------------------------------------------------------
 // TASK 7 — Connect the dots: init
@@ -277,7 +422,7 @@ function handleKeyDown(event) {
 // Call init() at the bottom.
 
 function init() {
-  // your code here
+  renderBoard(tasks)
 }
 
 // ----------------------------------------------------------
@@ -303,6 +448,22 @@ function init() {
 //     .addEventListener("input", handleSearch);
 //
 // Write a comment: why use "input" and not "change" for live search?
+
+function handleSearch(event) {
+  const query = event.target.value.toLowerCase().trim()
+  const taskCards = document.querySelectorAll(".task-card")
+  taskCards.forEach(card => {
+    const title = card.querySelector(".task-title").textContent.toLowerCase()
+    if (title.includes(query)) {
+      card.classList.remove("hidden")
+    } else {
+      card.classList.add("hidden")
+    }
+  })
+}
+
+document.getElementById("search-input")
+  .addEventListener("input", handleSearch); // input is immediate but change filter when the user hits enter
 
 // ============================================================
 // WIRE UP ALL LISTENERS (above init)
