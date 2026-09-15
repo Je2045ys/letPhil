@@ -78,7 +78,22 @@ const LANG_COLORS = {
 //   3. return the div
 
 function createProfileCard(user) {
-  // your code here
+  const displayName = user.name || user.login;
+  const bio = user.bio || "No bio yet - porfolios need one! ";
+
+  const card = document.createElement("div");
+  card.innerHTML = `
+        <img src="${user.avatar_url}" alt="${displayName}" />        
+        <h3>${displayName}</h3>
+        <p class="login">${user.login}</p>
+        <p class="bio">${bio}</p>
+        <p class="stats">
+       <span class="counter">${user.followers}</span> followers ·
+       <span class="counter">${user.following}</span> following ·
+        <span class="counter">${user.public_repos}</span> repos
+      </p>
+`;
+  return card;
 }
 
 // TASK 2 — createRepoRow (component function)
