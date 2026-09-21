@@ -116,7 +116,7 @@ function loadAndRender() {
   taskList  = JSON.parse(raw) || [];
 
   const listEl = document.getElementById("list-todo");
-  // Fix 2: Clear old items so they don't duplicate on re-render
+  
   listEl.innerHTML = "";
 
   taskList.forEach(function(task) {
