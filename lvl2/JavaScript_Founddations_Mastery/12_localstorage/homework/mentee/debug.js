@@ -10,6 +10,22 @@
 // But tasks.length logs 1 instead of 3, and tasks[0] is a string.
 // What's wrong?
 
+// const tasksToSave = [
+//   { id: 1, title: "Task A" },
+//   { id: 2, title: "Task B" },
+//   { id: 3, title: "Task C" }
+// ];
+
+// localStorage.setItem("tasks", JSON.stringify(tasksToSave));
+
+// const tasks = localStorage.getItem("tasks");
+// console.log(tasks.length);   // logs a large number — wrong
+// console.log(tasks[0]);       // logs "{" — wrong, expected an object
+
+// What's wrong ↓
+// did not parse the localstorage content
+
+// Your fix ↓
 const tasksToSave = [
   { id: 1, title: "Task A" },
   { id: 2, title: "Task B" },
@@ -18,13 +34,9 @@ const tasksToSave = [
 
 localStorage.setItem("tasks", JSON.stringify(tasksToSave));
 
-const tasks = localStorage.getItem("tasks");
-console.log(tasks.length);   // logs a large number — wrong
-console.log(tasks[0]);       // logs "{" — wrong, expected an object
-
-// What's wrong ↓
-
-// Your fix ↓
+const tasks = JSON.parse(localStorage.getItem("tasks"));
+console.log(tasks.length);   
+console.log(tasks[0]); 
 
 
 // ----------------------------------------------------------
@@ -54,8 +66,10 @@ function saveBoardState(taskList) {
 // Think about what could prevent the class from taking visual effect.
 
 // What's wrong ↓
+// The browser can't render the visible class while busy, and by the time it finishes, the timer has already removed it.
 
 // Your fix — conceptual explanation is enough here ↓
+// Wrapping runHeavyDomCalculations() in setTimeout(..., 0) pushes it to the back of the event loop queue.
 
 
 // ----------------------------------------------------------
@@ -66,11 +80,44 @@ function saveBoardState(taskList) {
 // duplicate tasks on every subsequent load.
 // Find both bugs.
 
+// let taskList = [];
+
+// function loadAndRender() {
+// const raw = localStorage.getItem("boardTasks");
+// taskList = JSON.parse(raw);
+
+// taskList.forEach(function(task) {
+// const li = document.createElement("li");
+// li.textContent = task.title;
+// document.getElementById("list-todo").appendChild(li);
+// });
+// }
+
+// // Saving some tasks so the second bug can be demonstrated:
+
+// localStorage.setItem("boardTasks", JSON.stringify([
+// { id: 1, title: "Task A", status: "todo" },
+// { id: 2, title: "Task B", status: "todo" }]));
+
+// loadAndRender();
+// loadAndRender(); // called again — what happens? // it displays the list again
+
+// Bug 1 (crash on first load) ↓
+// in the fresh browser, the local storage is going to return null 
+
+// Bug 2 (duplicates) ↓
+// it appends the list twice without clearing the DOM
+
+// Your fix ↓
 let taskList = [];
 
 function loadAndRender() {
   const raw = localStorage.getItem("boardTasks");
-  taskList  = JSON.parse(raw);
+  taskList  = JSON.parse(raw) || [];
+
+  const listEl = document.getElementById("list-todo");
+  // Fix 2: Clear old items so they don't duplicate on re-render
+  listEl.innerHTML = "";
 
   taskList.forEach(function(task) {
     const li = document.createElement("li");
@@ -86,10 +133,4 @@ localStorage.setItem("boardTasks", JSON.stringify([
 ]));
 
 loadAndRender();
-loadAndRender(); // called again — what happens?
-
-// Bug 1 (crash on first load) ↓
-
-// Bug 2 (duplicates) ↓
-
-// Your fix ↓
+loadAndRender();

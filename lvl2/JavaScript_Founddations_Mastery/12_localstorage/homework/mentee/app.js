@@ -77,7 +77,12 @@ let tasks = [];
 // This function will be called after EVERY change.
 
 function saveTasks() {
-  // your code here
+  localStorage.setItem("taskBoardData", JSON.stringify(tasks))
+  const saveIndicator = document.querySelector("#save-indicator")
+  saveIndicator.classList.add("visible")
+  setTimeout(function() {
+    saveIndicator.classList.remove("visible")
+  }, 1500)
 }
 
 // ----------------------------------------------------------
@@ -100,7 +105,15 @@ function saveTasks() {
 // ⚠️  Always check for null before parsing.
 
 function loadTasks() {
-  // your code here
+  const raw = localStorage.getItem("taskBoardData")
+
+  if (!raw) {
+    tasks = defaultTasks
+    saveTasks()
+    return
+  } else {
+    tasks = JSON.parse(raw)
+  }
 }
 
 // ----------------------------------------------------------
@@ -129,7 +142,45 @@ function loadTasks() {
 // Return the <li> — do NOT append it here.
 
 function createTaskCard(task) {
-  // your code here
+  const taskCard = document.createElement("li")
+  taskCard.classList.add("task-card")
+  taskCard.dataset.id = task.id
+  taskCard.priority = task.priority
+
+  const taskTitle = document.createElement("p")
+  taskTitle.classList.add("task-title")
+  taskTitle.textContent = task.title
+
+  const taskMeta = document.createElement("div")
+  taskMeta.classList.add("task-meta")
+  const prioritySpan = document.createElement("span")
+  prioritySpan.textContent = task.priority.toUpperCase()
+  prioritySpan.classList.add("priority-" + task.priority)
+  const assigneeSpan = document.createElement("span")
+  assigneeSpan.textContent = "👤 " + task.assignee
+  taskMeta.append(prioritySpan)
+  taskMeta.append(assigneeSpan)
+
+  const cardAction = document.createElement("div")
+  cardAction.classList.add("card-actions")
+  const completeBtn = document.createElement("button")
+  completeBtn.classList.add("complete-btn")
+  completeBtn.textContent = "✅ Complete"
+  const removeBtn = document.createElement("remove-btn")
+  removeBtn.classList.add("remove-btn")
+  removeBtn.textContent = "🗑️ Remove"
+  cardAction.append(completeBtn)
+  cardAction.append(removeBtn)
+
+  if (task.status === "done") {
+    taskCard.classList.add("completed")
+  }
+
+  taskCard.append(taskTitle)
+  taskCard.append(taskMeta)
+  taskCard.append(cardAction)
+
+  return taskCard
 }
 
 // ----------------------------------------------------------
@@ -161,11 +212,53 @@ function createTaskCard(task) {
 //   #count-done       → done.length          (just the number — no label)
 
 function updateCounts() {
-  // your code here
+  const done = tasks.filter(task => {
+    return task.status === "done"
+  })
+  const pending = tasks.filter(task => {
+    return task.status !== "done"
+  })
+  const todo = tasks.filter(task => {
+    return task.status === "todo"
+  })
+  const inprogress = tasks.filter(task => {
+    return task.status === "inprogress"
+  })
+
+  const taskCount = document.querySelector("#task-count")
+  taskCount.textContent = tasks.length + " tasks"
+  const completedCount = document.querySelector("#completed-count")
+  completedCount.textContent = "✅ " + done.length + " done"
+  const pendingCount = document.querySelector("#pending-count")
+  pendingCount.textContent = "⏳ " + pending.length + " pending"
+  const todoCount = document.querySelector("#count-todo")
+  todoCount.textContent = todo.length
+  const inprogressCount = document.querySelector("#count-inprogress")
+  inprogressCount.textContent = inprogress.length
+  const doneCount = document.querySelector("#count-done")
+  doneCount.textContent = done.length
 }
 
 function renderBoard() {
-  // your code here
+  const listTodo = document.querySelector("#list-todo")
+  const inprogressList = document.querySelector("#list-inprogress")
+  const doneList = document.querySelector("#list-done")
+  listTodo.innerHTML = ""
+  inprogressList.innerHTML = ""
+  doneList.innerHTML = ""
+  
+  tasks.forEach(task => {
+    const card = createTaskCard(task)
+    if (task.status === "todo") {
+      listTodo.append(card)
+    } else if (task.status === "inprogress") {
+      inprogressList.append(card)
+    } else if (task.status === "done") {
+      doneList.append(card)
+    }
+  })
+
+  updateCounts()
 }
 
 // ----------------------------------------------------------
@@ -196,7 +289,31 @@ function renderBoard() {
 //     .addEventListener("click", handleAddTask)
 
 function handleAddTask() {
-  // your code here
+  const title = document.querySelector("#task-title-input").value.trim()
+  const assignee = document.querySelector("#task-assignee-input").value.trim()
+  const priority = document.querySelector("#task-priority-input").value
+  const status = document.querySelector("#task-status-input").value
+
+  if (!title) {
+    return
+  }
+
+  const newTask = {
+    id: Date.now(),
+    title,
+    assignee: assignee ? `👤 ${assignee.trim()}` : "👤 ",
+    priority,
+    status
+  }
+
+  tasks.push(newTask)
+
+  saveTasks()
+
+  renderBoard()
+
+  document.querySelector("#task-title-input").value = ""
+  document.querySelector("#task-assignee-input").value = ""
 }
 
 document
@@ -228,7 +345,30 @@ document
 // Wire it up to document.querySelector(".board")
 
 function handleBoardClick(event) {
-  // your code here
+  const card = event.target.closest(".task-card")
+  if (!card) {
+    return
+  }
+
+  const taskId = parseInt(card.dataset.id)
+  const task = tasks.find(task => {
+    return task.id === taskId
+  })
+
+  if (event.target.closest(".complete-btn")) {
+    task.status = "done"
+    saveTasks()
+    renderBoard()
+  }
+
+  if (event.target.closest(".remove-btn")) {
+    const index = tasks.findIndex(t => t.id === taskId)
+    if (index !== -1) {
+      tasks.splice(index, 1)
+      saveTasks()
+      renderBoard()
+    }
+  }
 }
 
 document.querySelector(".board").addEventListener("click", handleBoardClick);
@@ -251,7 +391,17 @@ document.querySelector(".board").addEventListener("click", handleBoardClick);
 //     .addEventListener("click", handleClearAll)
 
 function handleClearAll() {
-  // your code here
+  if (!confirm("Clear all tasks? This cannot be undone.")) {
+    return
+  }
+
+  localStorage.removeItem("taskBoardData")
+
+  tasks = [...defaultTasks]
+
+  saveTasks()
+
+  renderBoard()
 }
 
 document.getElementById("clear-btn").addEventListener("click", handleClearAll);
@@ -267,8 +417,11 @@ document.getElementById("clear-btn").addEventListener("click", handleClearAll);
 // Call init() at the bottom.
 
 function init() {
-  // your code here
+  loadTasks()
+  renderBoard()
 }
+
+init()
 
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL — persist filter preference
@@ -293,6 +446,53 @@ function init() {
 //       Apply the saved filter (update active button + show/hide cards)
 //
 // Write a comment: what other UI state might be worth persisting?
+// the theme preference, the task sorting, view mode (columns and list view)
+
+function saveFilter(filterValue) {
+  localStorage.setItem("taskFilter", filterValue)
+}
+
+function loadFilter() {
+  return localStorage.getItem("taskFilter") || "all"
+}
+
+document.addEventListener("click", (event) => {
+  const filterBtn = event.target.closest(".filter-btn")
+  if (!filterBtn) {
+    return
+  }
+
+  const filterValue = filterBtn.dataset.filter
+  applyFilter(filterValue)
+  saveFilter(filterValue)
+})
+
+function init() {
+  loadTasks()
+  renderBoard()
+  const savedFilter = loadFilter()
+  applyFilter(savedFilter)
+}
+
+function applyFilter(savedFilter) {
+  const filterBtns = document.querySelectorAll(".filter-btn")
+  filterBtns.forEach((btn) => {
+    if (btn.dataset.filter === saveFilter) {
+      btn.classList.add("active")
+    } else {
+      btn.classList.remove("active")
+    }
+  })
+
+  const taskCards = document.querySelectorAll(".task-card")
+  taskCards.forEach(card => {
+    if (savedFilter === "all" || card.dataset.priority === saveFilter) {
+      card.style.display = ""
+    } else {
+      card.style.display = "none"
+    }
+  })
+}
 
 // ============================================================
 // START
