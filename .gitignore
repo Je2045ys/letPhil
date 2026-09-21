@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 .DS_Store
 **/.DS_Store
 **/Thumbs.db
+=======
+.env
+>>>>>>> be4e91b832c08769e2e51e018fb1b913126bd3da
