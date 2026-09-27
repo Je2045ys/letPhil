@@ -36,9 +36,246 @@
 // f) Log the company name of user with id === 7
 
 // Paste the JSON response here:
-const usersJson = `[]`; // ← replace [] with the real response
+const usersJson = `[{
+    "id": 1,
+    "name": "Leanne Graham",
+    "username": "Bret",
+    "email": "Sincere@april.biz",
+    "address": {
+      "street": "Kulas Light",
+      "suite": "Apt. 556",
+      "city": "Gwenborough",
+      "zipcode": "92998-3874",
+      "geo": {
+        "lat": "-37.3159",
+        "lng": "81.1496"
+      }
+    },
+    "phone": "1-770-736-8031 x56442",
+    "website": "hildegard.org",
+    "company": {
+      "name": "Romaguera-Crona",
+      "catchPhrase": "Multi-layered client-server neural-net",
+      "bs": "harness real-time e-markets"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Ervin Howell",
+    "username": "Antonette",
+    "email": "Shanna@melissa.tv",
+    "address": {
+      "street": "Victor Plains",
+      "suite": "Suite 879",
+      "city": "Wisokyburgh",
+      "zipcode": "90566-7771",
+      "geo": {
+        "lat": "-43.9509",
+        "lng": "-34.4618"
+      }
+    },
+    "phone": "010-692-6593 x09125",
+    "website": "anastasia.net",
+    "company": {
+      "name": "Deckow-Crist",
+      "catchPhrase": "Proactive didactic contingency",
+      "bs": "synergize scalable supply-chains"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Clementine Bauch",
+    "username": "Samantha",
+    "email": "Nathan@yesenia.net",
+    "address": {
+      "street": "Douglas Extension",
+      "suite": "Suite 847",
+      "city": "McKenziehaven",
+      "zipcode": "59590-4157",
+      "geo": {
+        "lat": "-68.6102",
+        "lng": "-47.0653"
+      }
+    },
+    "phone": "1-463-123-4447",
+    "website": "ramiro.info",
+    "company": {
+      "name": "Romaguera-Jacobson",
+      "catchPhrase": "Face to face bifurcated interface",
+      "bs": "e-enable strategic applications"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Patricia Lebsack",
+    "username": "Karianne",
+    "email": "Julianne.OConner@kory.org",
+    "address": {
+      "street": "Hoeger Mall",
+      "suite": "Apt. 692",
+      "city": "South Elvis",
+      "zipcode": "53919-4257",
+      "geo": {
+        "lat": "29.4572",
+        "lng": "-164.2990"
+      }
+    },
+    "phone": "493-170-9623 x156",
+    "website": "kale.biz",
+    "company": {
+      "name": "Robel-Corkery",
+      "catchPhrase": "Multi-tiered zero tolerance productivity",
+      "bs": "transition cutting-edge web services"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Chelsey Dietrich",
+    "username": "Kamren",
+    "email": "Lucio_Hettinger@annie.ca",
+    "address": {
+      "street": "Skiles Walks",
+      "suite": "Suite 351",
+      "city": "Roscoeview",
+      "zipcode": "33263",
+      "geo": {
+        "lat": "-31.8129",
+        "lng": "62.5342"
+      }
+    },
+    "phone": "(254)954-1289",
+    "website": "demarco.info",
+    "company": {
+      "name": "Keebler LLC",
+      "catchPhrase": "User-centric fault-tolerant solution",
+      "bs": "revolutionize end-to-end systems"
+    }
+  },
+  {
+    "id": 6,
+    "name": "Mrs. Dennis Schulist",
+    "username": "Leopoldo_Corkery",
+    "email": "Karley_Dach@jasper.info",
+    "address": {
+      "street": "Norberto Crossing",
+      "suite": "Apt. 950",
+      "city": "South Christy",
+      "zipcode": "23505-1337",
+      "geo": {
+        "lat": "-71.4197",
+        "lng": "71.7478"
+      }
+    },
+    "phone": "1-477-935-8478 x6430",
+    "website": "ola.org",
+    "company": {
+      "name": "Considine-Lockman",
+      "catchPhrase": "Synchronised bottom-line interface",
+      "bs": "e-enable innovative applications"
+    }
+  },
+  {
+    "id": 7,
+    "name": "Kurtis Weissnat",
+    "username": "Elwyn.Skiles",
+    "email": "Telly.Hoeger@billy.biz",
+    "address": {
+      "street": "Rex Trail",
+      "suite": "Suite 280",
+      "city": "Howemouth",
+      "zipcode": "58804-1099",
+      "geo": {
+        "lat": "24.8918",
+        "lng": "21.8984"
+      }
+    },
+    "phone": "210.067.6132",
+    "website": "elvis.io",
+    "company": {
+      "name": "Johns Group",
+      "catchPhrase": "Configurable multimedia task-force",
+      "bs": "generate enterprise e-tailers"
+    }
+  },
+  {
+    "id": 8,
+    "name": "Nicholas Runolfsdottir V",
+    "username": "Maxime_Nienow",
+    "email": "Sherwood@rosamond.me",
+    "address": {
+      "street": "Ellsworth Summit",
+      "suite": "Suite 729",
+      "city": "Aliyaview",
+      "zipcode": "45169",
+      "geo": {
+        "lat": "-14.3990",
+        "lng": "-120.7677"
+      }
+    },
+    "phone": "586.493.6943 x140",
+    "website": "jacynthe.com",
+    "company": {
+      "name": "Abernathy Group",
+      "catchPhrase": "Implemented secondary concept",
+      "bs": "e-enable extensible e-tailers"
+    }
+  },
+  {
+    "id": 9,
+    "name": "Glenna Reichert",
+    "username": "Delphine",
+    "email": "Chaim_McDermott@dana.io",
+    "address": {
+      "street": "Dayna Park",
+      "suite": "Suite 449",
+      "city": "Bartholomebury",
+      "zipcode": "76495-3109",
+      "geo": {
+        "lat": "24.6463",
+        "lng": "-168.8889"
+      }
+    },
+    "phone": "(775)976-6794 x41206",
+    "website": "conrad.com",
+    "company": {
+      "name": "Yost and Sons",
+      "catchPhrase": "Switchable contextually-based project",
+      "bs": "aggregate real-time technologies"
+    }
+  },
+  {
+    "id": 10,
+    "name": "Clementina DuBuque",
+    "username": "Moriah.Stanton",
+    "email": "Rey.Padberg@karina.biz",
+    "address": {
+      "street": "Kattie Turnpike",
+      "suite": "Suite 198",
+      "city": "Lebsackbury",
+      "zipcode": "31428-2261",
+      "geo": {
+        "lat": "-38.2386",
+        "lng": "57.2232"
+      }
+    },
+    "phone": "024-648-3804",
+    "website": "ambrose.net",
+    "company": {
+      "name": "Hoeger LLC",
+      "catchPhrase": "Centralized empowering task-force",
+      "bs": "target end-to-end models"
+    }
+  }]`; // ← replace [] with the real response
 
 // Your code:
+const users = JSON.parse(usersJson)
+
+console.log(`We have ${users.length} users`)
+console.log(users[0].name)
+console.log(users[users.length-1].email)
+console.log(users[2].address.city)
+const user7 = users.find(user => user.id===7)
+console.log(user7.company.name)
 
 // ----------------------------------------------------------
 // TASK 2 — Navigate nested data
@@ -59,6 +296,15 @@ const usersJson = `[]`; // ← replace [] with the real response
 // d) Use forEach to log each user's name and company:
 //    "Name: [name] | Company: [company.name]"
 
+const names = users.map(user => user.name)
+console.log("All users: " + names)
+
+const emails = users.filter(user => user.email.endsWith(".biz"))
+console.log(`Emails ending in .biz are ${emails.length} and the names are: `)
+emails.forEach(user => {
+  console.log(`- ${user.name}`)
+});
+
 // ----------------------------------------------------------
 // TASK 3 — Query parameters in practice
 // ----------------------------------------------------------
@@ -66,23 +312,23 @@ const usersJson = `[]`; // ← replace [] with the real response
 //
 // URL A: https://jsonplaceholder.typicode.com/posts?userId=3
 // How many posts does user 3 have?
-// Answer:
+// Answer: 10
 //
 // URL B: https://jsonplaceholder.typicode.com/todos?userId=1&completed=true
 // How many completed todos does user 1 have?
-// Answer:
+// Answer: 11
 //
 // URL C: https://jsonplaceholder.typicode.com/todos?userId=1&completed=false
 // How many incomplete todos does user 1 have?
-// Answer:
+// Answer: 9
 //
 // URL D: https://jsonplaceholder.typicode.com/posts?_page=3&_limit=4
 // What is the id of the first post on page 3?
 // (Count: page 3 at limit 4 = posts starting at index 8, id 9)
-// Answer:
+// Answer: 9
 //
 // Write a comment explaining what you'd change in URL D to get page 5:
-// Answer:
+// Answer: _page=5
 
 // ----------------------------------------------------------
 // TASK 4 — Build URLs with query params
@@ -100,7 +346,14 @@ const usersJson = `[]`; // ← replace [] with the real response
 //     return baseUrl + queryString
 
 function buildApiUrl(baseUrl, params) {
-  // your code here
+  if (Object.keys(params).length === 0) {
+    return baseUrl
+  } else {
+    const queryString = "?" + Object.keys(params)
+                          .map(key => key + "=" + params[key])
+                          .join("&")
+    return baseUrl + queryString
+  }
 }
 
 // Test it:
@@ -131,7 +384,7 @@ console.log(buildApiUrl("https://jsonplaceholder.typicode.com/posts", {}));
 //
 // Copy the response and paste it below.
 
-const weatherJson = `{}`; // ← replace {} with the real response
+const weatherJson = `{"latitude":40.710335,"longitude":-73.99308,"generationtime_ms":6.488204002380371,"utc_offset_seconds":0,"timezone":"GMT","timezone_abbreviation":"GMT","elevation":27.0,"current_weather_units":{"time":"iso8601","interval":"seconds","temperature":"°C","windspeed":"km/h","winddirection":"°","is_day":"","weathercode":"wmo code"},"current_weather":{"time":"2026-09-23T17:15","interval":900,"temperature":19.3,"windspeed":30.0,"winddirection":51,"is_day":1,"weathercode":3}}`; // ← replace {} with the real response
 
 // Then:
 // a) Parse it: const weather = JSON.parse(weatherJson)
@@ -159,6 +412,26 @@ const weatherJson = `{}`; // ← replace {} with the real response
 
 // Your code:
 
+const weather = JSON.parse(weatherJson)
+console.log(`The current weather is ${weather.current_weather.temperature}${weather.current_weather_units.temperature}`)
+console.log(`The wind speed is ${weather.current_weather.windspeed}${weather.current_weather_units.windspeed}`)
+console.log(`The weather code is ${weather.current_weather.weathercode}`)
+
+function describeWeather(weathercode) {
+  if (weathercode === 0) {
+    return "☀️ Clear sky"
+  } else if (weathercode === 1 || weathercode === 2 || weathercode === 3) {
+    return "⛅ Partly cloudy"
+  } else if (weathercode === 45 || weathercode === 46 || weathercode === 47 || weathercode === 48){
+    return "🌫️ Foggy"
+  } else if (weathercode > 3 && weathercode < 80) {
+    return "🌧️ Rain or drizzle"
+  } else if (weathercode >= 80) {
+    return "⛈️ Stormy"
+  }
+}
+console.log(describeWeather(100))
+
 // ----------------------------------------------------------
 // TASK 6 — Compare two cities
 // ----------------------------------------------------------
@@ -168,8 +441,8 @@ const weatherJson = `{}`; // ← replace {} with the real response
 //
 // Paste each response below.
 
-const nycWeatherJson = `{}`; // ← NYC response
-const londonWeatherJson = `{}`; // ← London response
+const nycWeatherJson = `{"latitude":40.710335,"longitude":-73.99308,"generationtime_ms":0.23090839385986328,"utc_offset_seconds":0,"timezone":"GMT","timezone_abbreviation":"GMT","elevation":27.0,"current_weather_units":{"time":"iso8601","interval":"seconds","temperature":"°C","windspeed":"km/h","winddirection":"°","is_day":"","weathercode":"wmo code"},"current_weather":{"time":"2026-09-23T18:30","interval":900,"temperature":20.2,"windspeed":25.2,"winddirection":44,"is_day":1,"weathercode":3}}`; // ← NYC response
+const londonWeatherJson = `{"latitude":51.51147,"longitude":-0.13078308,"generationtime_ms":0.18167495727539062,"utc_offset_seconds":0,"timezone":"GMT","timezone_abbreviation":"GMT","elevation":29.0,"current_weather_units":{"time":"iso8601","interval":"seconds","temperature":"°C","windspeed":"km/h","winddirection":"°","is_day":"","weathercode":"wmo code"},"current_weather":{"time":"2026-09-23T18:30","interval":900,"temperature":19.5,"windspeed":14.4,"winddirection":338,"is_day":0,"weathercode":0}}`; // ← London response
 
 // Then:
 // a) Parse both
@@ -179,6 +452,14 @@ const londonWeatherJson = `{}`; // ← London response
 //    "The warmer city is: [city name]"
 //    Use a ternary: nycTemp > londonTemp ? "New York" : "London"
 
+const nycWeather = JSON.parse(nycWeatherJson)
+const londonWeather = JSON.parse(londonWeatherJson)
+const nycTemp = nycWeather.current_weather.temperature
+const londonTemp = londonWeather.current_weather.temperature
+console.log(`NYC: ${nycTemp}°C | London: ${londonTemp}°C`)
+console.log("The warmer city is: " + (nycTemp > londonTemp ? "New York" : "London"))
+
+
 // ----------------------------------------------------------
 // TASK 7 — Status code scenario matching
 // ----------------------------------------------------------
@@ -186,22 +467,22 @@ const londonWeatherJson = `{}`; // ← London response
 // AND a brief explanation. Write your answers as comments.
 //
 // Scenario 1: You request /users/9999 but no user has that id.
-// Code + reason:
+// Code + reason: 404, not found
 //
 // Scenario 2: You try to delete a post but you're not logged in.
-// Code + reason:
+// Code + reason: 403, forbidden to do so
 //
 // Scenario 3: You create a new post successfully.
-// Code + reason:
+// Code + reason: 201, created
 //
 // Scenario 4: You send a POST request with a required field missing.
-// Code + reason:
+// Code + reason: 400, bad request
 //
 // Scenario 5: You request /posts and get back a list of 100 posts.
-// Code + reason:
+// Code + reason: 200, success
 //
 // Scenario 6: The API database server crashes while processing your request.
-// Code + reason:
+// Code + reason: 500, internal error
 
 // ----------------------------------------------------------
 // TASK 8 — Connect the dots: analyse user posts
@@ -309,7 +590,20 @@ const postsMock = [
 // Call analyseUser(userMock, postsMock)
 
 function analyseUser(user, posts) {
-  // your code here
+  console.log("=== " + user.name + " (@" + user.username + ") ===")
+
+  console.log( "📍 " + user.address.city)
+
+  console.log("🏢 " + user.company.name)
+
+  console.log( "📝 Posts: " + posts.length)
+
+  const shortestPost = posts.reduce((shortest, current) => {
+    return current.title.length < shortest.title.length ? current : shortest
+  })
+  console.log("Shortest title: " + shortestPost.title)
+
+  posts.forEach(post => console.log("  • " + post.title))
 }
 
 analyseUser(userMock, postsMock);
@@ -342,7 +636,28 @@ analyseUser(userMock, postsMock);
 // → { base: "https://jsonplaceholder.typicode.com/users", params: {} }
 
 function parseUrl(url) {
-  // your code here
+  let base = url;
+  const params = {}
+
+  if (url.includes("?")) {
+    const parts = url.split("?")
+    base = parts[0]
+    const queryString = parts[1]
+
+    const pairs = queryString.split("&")
+
+    pairs.forEach(pair => {
+      const [key, value] = pair.split("=")
+
+      if (key) {
+        params[key] = value
+      }
+    })
+  } 
+  return {
+    base: base,
+    params: params
+  }
 }
 
 console.log(

@@ -9,15 +9,19 @@
 // This parses a user API response and tries to log the city.
 // It logs undefined. What's wrong?
 
+// const userJson = '{"id":1,"name":"Leanne Graham","address":{"street":"Kulas Light","city":"Gwenborough","zipcode":"92998-3874"}}';
+// const user = JSON.parse(userJson);
+
+// console.log(user.city); // undefined
+
+// What's wrong ↓
+// city is in the address object
+
+// Your fix ↓
 const userJson = '{"id":1,"name":"Leanne Graham","address":{"street":"Kulas Light","city":"Gwenborough","zipcode":"92998-3874"}}';
 const user = JSON.parse(userJson);
 
-console.log(user.city); // undefined
-
-// What's wrong ↓
-
-// Your fix ↓
-
+console.log(user.address.city); 
 
 // ----------------------------------------------------------
 // 🟡 DEBUG 2 — Medium
@@ -26,21 +30,30 @@ console.log(user.city); // undefined
 // It outputs "?&userId=1&_limit=5" with a leading & after ?.
 // What's wrong?
 
-function buildQuery(params) {
-  let query = "?";
-  Object.keys(params).forEach(function(key) {
-    query += "&" + key + "=" + params[key];
-  });
-  return query;
-}
+// function buildQuery(params) {
+//   let query = "?";
+//   Object.keys(params).forEach(function(key) {
+//     query = "&" + key + "=" + params[key] ;
+//   });
+//   return query;
+// }
 
-console.log(buildQuery({ userId: 1, _limit: 5 }));
+// console.log(buildQuery({ userId: 1, _limit: 5 }));
 // Actual:   "?&userId=1&_limit=5"
 // Expected: "?userId=1&_limit=5"
 
 // What's wrong ↓
+// overwriting query instead of appending
 
 // Your fix ↓
+function buildQuery(params) {
+  const query = "?" + Object.keys(params).map(key => {
+    key + "=" + params[key]
+}).join("&");
+  return query;
+}
+
+console.log(buildQuery({ userId: 1, _limit: 5 }));
 
 
 // ----------------------------------------------------------
@@ -50,20 +63,33 @@ console.log(buildQuery({ userId: 1, _limit: 5 }));
 // API response and display a summary. It has TWO bugs —
 // one causes incorrect output, one causes a crash.
 
+// const apiData = JSON.parse('{"status":200,"users":[{"id":1,"name":"Alex","role":"admin"},{"id":2,"name":"Sam","role":"member"}]}');
+
+// function displayUsers(data) {
+//   console.log("Total users: " + data.length);  // Bug 1
+
+//   data.users.forEach(function(user) {
+//     console.log(user.name + " — " + user.Role); // Bug 2
+//   });
+// }
+
+// displayUsers(apiData);
+
+// Bug 1 ↓
+// data.length, we need to access the users within the object
+
+// Bug 2 ↓
+// case sensitivity, Role instead of role
+
+// Your fix ↓
 const apiData = JSON.parse('{"status":200,"users":[{"id":1,"name":"Alex","role":"admin"},{"id":2,"name":"Sam","role":"member"}]}');
 
 function displayUsers(data) {
-  console.log("Total users: " + data.length);  // Bug 1
+  console.log("Total users: " + data.users.length);  // Bug 1
 
   data.users.forEach(function(user) {
-    console.log(user.name + " — " + user.Role); // Bug 2
+    console.log(user.name + " — " + user.role); // Bug 2
   });
 }
 
 displayUsers(apiData);
-
-// Bug 1 ↓
-
-// Bug 2 ↓
-
-// Your fix ↓
