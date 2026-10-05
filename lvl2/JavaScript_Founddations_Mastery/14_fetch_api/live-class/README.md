@@ -54,12 +54,12 @@ fetch(url)
 The single most important fact about `fetch`: the promise only rejects on a **network failure** — no internet, DNS failure, CORS block. A `404`, `403`, or `500` from the server still counts as a "successful" fetch as far as the promise is concerned. `response.ok` will be `false`, but nothing throws on its own.
 
 ```js
-fetch(url).then((response) => {
+fetch(url).then(response) => {
   if (!response.ok) {
     throw new Error(`Request failed: ${response.status}`); // you throw it
   }
   return response.json();
-});
+}();
 ```
 
 ### `.catch` — network failures, and anything YOU throw
