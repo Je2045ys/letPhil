@@ -5,6 +5,7 @@
 // (prop threading), and two quick extra destructuring reps.
 // ============================================================
 
+
 const team = [
   { name: "Alex Rivera", role: "Senior Engineer", dept: "Engineering", email: "alex@devstudio.com",
     photo: "https://randomuser.me/api/portraits/men/32.jpg",
@@ -31,8 +32,39 @@ const team = [
 //   5. <button> — textContent: "📧 Contact"
 //      On click: call onContact(email)
 
-function MemberCard(/* your destructured parameter here */) {
-  // your code here
+function MemberCard( { member: { name, role, dept, email, photo, bio }, onContact }) {
+  const card = document.createElement("div")
+  card.className = "member-card"
+
+  const memberPic = document.createElement("img")
+  memberPic.className = "member-photo"
+  memberPic.src = photo
+  memberPic.alt = name;
+
+  const memberName = document.createElement("h3")
+  memberName.textContent = name
+
+  const memberRole = document.createElement("p")
+  memberRole.className = "member-role"
+  memberRole.textContent = role + " . " + dept
+
+  const memberBio = document.createElement("p")
+  memberBio.className = "member-bio"
+  memberBio.textContent = bio
+
+  const btn = document.createElement("button")
+  btn.textContent = "📧 Contact"
+  btn.addEventListener("click", function () {
+    onContact(email)
+  })
+
+  card.append(btn)
+  card.append(memberBio)
+  card.append(memberRole)
+  card.append(memberName)
+  card.append(memberPic)
+
+  return card
 }
 
 
@@ -61,14 +93,24 @@ function MemberCard(/* your destructured parameter here */) {
 //   );
 
 function TeamList(props) {
-  // your code here
+  const container = document.createElement("div")
+ 
+  props.members.forEach(member => {
+    const card = MemberCard({ member: member, onContact: props.onContact })
+    container.append(card)
+  });
+
+
+  return container
 }
 
 function handleContact(email) {
-  // your code here
+  console.log("Contacting: " + email)
 }
 
-// mount it here
+document.getElementById("app").appendChild(
+  TeamList({members: team, onContact: handleContact})
+)
 
 
 // TASK 3 — two more destructuring reps
@@ -84,10 +126,17 @@ function handleContact(email) {
 //      const { dept = "Unassigned" } = partialMember;
 //    Log dept.
 
+
+
+const {name: firstMemberName, ...restOfFirstMember} = team[0]
+
+console.log(firstMemberName)
+console.log(restOfFirstMember)
+
 const partialMember = { name: "Maya Chen", role: "Intern" };
 
-// your code here
-
+const {dept = "Unassigned"} = partialMember
+console.log(dept)
 
 // ============================================================
 // 📝 WHAT THIS HOMEWORK DRILLED
